@@ -4,7 +4,32 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Momotaro Nashville — Japanese Restaurant in Nashville, TN</title>
-<meta name="description" content="Momotaro arrives in Nashville's Wedgewood Houston neighborhood — tightly executed Japanese cuisine, deeply personal service, and an unwavering respect for tradition." />
+<meta name="description" content="Momotaro Nashville — Japanese restaurant in Wedgewood Houston serving sushi, robata &amp; seasonal cuisine. Reservations via OpenTable." />
+<link rel="canonical" href="https://www.momotaronashville.com/" />
+
+<!-- Favicon -->
+<link rel="icon" href="images/logo.png" type="image/png" />
+<link rel="apple-touch-icon" href="images/logo.png" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="restaurant" />
+<meta property="og:title" content="Momotaro Nashville — Japanese Restaurant in Nashville, TN" />
+<meta property="og:description" content="Japanese restaurant in Wedgewood Houston serving sushi, robata &amp; seasonal cuisine. Reservations via OpenTable." />
+<meta property="og:image" content="https://www.momotaronashville.com/images/sushi-huge.avif" />
+<meta property="og:url" content="https://www.momotaronashville.com/" />
+<meta property="og:site_name" content="Momotaro Nashville" />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Momotaro Nashville — Japanese Restaurant in Nashville, TN" />
+<meta name="twitter:description" content="Japanese restaurant in Wedgewood Houston serving sushi, robata &amp; seasonal cuisine." />
+<meta name="twitter:image" content="https://www.momotaronashville.com/images/sushi-huge.avif" />
+
+<!-- Geo meta for local SEO -->
+<meta name="geo.region" content="US-TN" />
+<meta name="geo.placename" content="Nashville" />
+<meta name="geo.position" content="36.1424;-86.7759" />
+<meta name="ICBM" content="36.1424, -86.7759" />
 
 <!-- Exact Momotaro brand fonts (Adobe Fonts kit): minerva-modern (logo serif) + futura-pt (sans) -->
 <link rel="stylesheet" href="https://use.typekit.net/oue3qhm.css" />
@@ -14,9 +39,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&family=Shippori+Mincho:wght@400;500;600&display=swap" rel="stylesheet" />
 
 <!-- Motion: GSAP + ScrollTrigger + Lenis -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js" defer></script>
 
 <style>
 /* =========================================================
@@ -415,6 +440,59 @@ section{position:relative}
 /* fade-up util baseline (JS animates) */
 [data-fade]{opacity:0;transform:translateY(40px)}
 </style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Restaurant",
+  "name": "Momotaro Nashville",
+  "image": "https://www.momotaronashville.com/images/sushi-huge.avif",
+  "url": "https://www.momotaronashville.com",
+  "telephone": "+1-629-206-9900",
+  "email": "info@momotaronashville.com",
+  "servesCuisine": ["Japanese", "Sushi", "Robata", "Sashimi"],
+  "priceRange": "$$$$",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "519 Houston Street",
+    "addressLocality": "Nashville",
+    "addressRegion": "TN",
+    "postalCode": "37203",
+    "addressCountry": "US"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 36.1424,
+    "longitude": -86.7759
+  },
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+      "opens": "16:30",
+      "closes": "22:00"
+    }
+  ],
+  "acceptsReservations": "True",
+  "hasMenu": {
+    "@type": "Menu",
+    "name": "Momotaro Nashville Menu",
+    "hasMenuSection": [
+      {"@type": "MenuSection", "name": "Dinner"},
+      {"@type": "MenuSection", "name": "Dessert"},
+      {"@type": "MenuSection", "name": "Beverage"}
+    ]
+  },
+  "parentOrganization": {
+    "@type": "Organization",
+    "name": "Boka Restaurant Group"
+  },
+  "sameAs": [
+    "https://www.instagram.com/momotarorestaurant/",
+    "https://www.facebook.com/momotarorestaurant/"
+  ]
+}
+</script>
 </head>
 <body>
 
@@ -425,8 +503,8 @@ section{position:relative}
 
 <!-- ================= PRELOADER ================= -->
 <div class="loader" id="loader">
-  <img class="loader__circle" src="images/logo.png" alt="Momotaro Nashville" />
-  <div class="loader__welcome">ようこそ</div>
+  <img class="loader__circle" src="images/logo.png" alt="Momotaro Nashville" width="401" height="406" />
+  <div class="loader__welcome" lang="ja">ようこそ</div>
   <div class="loader__label">Nashville · TN</div>
   <div class="loader__count" id="count">0</div>
   <div class="loader__bar" id="bar"></div>
@@ -435,7 +513,7 @@ section{position:relative}
 <!-- ================= NAV ================= -->
 <nav class="nav" id="nav">
   <a class="nav__brand" href="#top">
-    <img src="images/momotaro-mark.png" alt="Momotaro" />
+    <img src="images/momotaro-mark.png" alt="Momotaro" width="401" height="406" />
   </a>
   <div class="nav__links" id="navlinks">
     <a href="#about">About</a>
@@ -450,10 +528,10 @@ section{position:relative}
 <!-- ================= HERO ================= -->
 <section class="hero" id="top">
   <div class="hero__media" data-hero-media>
-    <img src="images/sushi-huge.avif" alt="Momotaro Nashville chef's nigiri selection" />
+    <img src="images/sushi-huge.avif" alt="Momotaro Nashville chef's nigiri selection" width="3500" height="2333" />
   </div>
   <div class="hero__inner wrap">
-    <div class="hero__jp" data-hero="1">ようこそ · Welcome</div>
+    <div class="hero__jp" data-hero="1"><span lang="ja">ようこそ</span> · Welcome</div>
     <h1 class="hero__title">
       <span class="reveal-line"><span data-hero-line>Momotaro</span></span>
     </h1>
@@ -497,10 +575,11 @@ section{position:relative}
       <div class="about__copy">
         <p data-fade>Momotaro arrives in Nashville's Wedgewood Houston neighborhood, carrying forward the philosophy that has defined its celebrated Chicago home — tightly executed cuisine, deeply personal service, and an unwavering respect for Japanese culinary tradition.</p>
         <p data-fade>Led by Chef Partner Gene Kato and the Boka Restaurant Group, Momotaro Nashville is a new chapter in a story that has always been rooted in craft — a modern dining experience shaped by the seasons, the land, and the enduring elegance of Japanese cooking.</p>
+        <p data-fade>Located at 519 Houston Street in the heart of Wedgewood Houston, Momotaro is Nashville's destination for sushi, sashimi, robata-grilled dishes, and handcrafted Japanese cocktails. The menu changes with the seasons, drawing on the finest domestic and imported ingredients. Reservations are available nightly, Tuesday through Saturday, via OpenTable.</p>
       </div>
     </div>
     <div class="about__img" data-about-img>
-      <img src="images/sushi-brg.avif" alt="Wagyu, uni and caviar maki at Momotaro Nashville" />
+      <img src="images/sushi-brg.avif" alt="Wagyu, uni and caviar maki at Momotaro Nashville" width="1365" height="2048" loading="lazy" />
       <span class="about__frame"></span>
       <span class="about__tag">Wagyu · Uni · Caviar</span>
     </div>
@@ -574,7 +653,7 @@ section{position:relative}
 
   <!-- Japanese culinary verse (Edo-period haiku, Yamaguchi Sodō) used by Momotaro as a divider -->
   <div class="menu__quote" data-fade>
-    <div class="jp">目に青葉 山ほととぎす 初鰹</div>
+    <div class="jp" lang="ja">目に青葉 山ほととぎす 初鰹</div>
     <div class="tr">Green leaves to the eye, the mountain cuckoo, the season's first bonito.</div>
     <div class="by">Yamaguchi Sodō · 山口素堂</div>
   </div>
@@ -583,27 +662,27 @@ section{position:relative}
   <div class="sig">
     <div class="sig__card" data-fade>
       <span class="sig__num">壱</span>
-      <div class="sig__media"><img src="images/mapo-tofu.webp" alt="Momotaro mapo tofu in a clay donabe with steamed rice" /></div>
+      <div class="sig__media"><img src="images/mapo-tofu.webp" alt="Momotaro mapo tofu in a clay donabe with steamed rice" width="1196" height="795" loading="lazy" /></div>
       <div class="sig__cap">
-        <div class="sig__jp">マーボー豆腐</div>
+        <div class="sig__jp" lang="ja">マーボー豆腐</div>
         <div class="sig__name">Mapo Tofu</div>
         <div class="sig__desc">Clay-pot braise, served with steamed rice.</div>
       </div>
     </div>
     <div class="sig__card" data-fade>
       <span class="sig__num">弐</span>
-      <div class="sig__media"><img src="images/nigiri.webp" alt="Assorted Momotaro nigiri sushi" /></div>
+      <div class="sig__media"><img src="images/nigiri.webp" alt="Assorted Momotaro nigiri sushi" width="1500" height="1000" loading="lazy" /></div>
       <div class="sig__cap">
-        <div class="sig__jp">握り寿司</div>
+        <div class="sig__jp" lang="ja">握り寿司</div>
         <div class="sig__name">Nigiri</div>
         <div class="sig__desc">Chef's selection of seasonal fish.</div>
       </div>
     </div>
     <div class="sig__card" data-fade>
       <span class="sig__num">参</span>
-      <div class="sig__media"><img src="images/momomaki.webp" alt="Momomaki, Momotaro's signature maki roll" /></div>
+      <div class="sig__media"><img src="images/momomaki.webp" alt="Momomaki, Momotaro's signature maki roll" width="1200" height="800" loading="lazy" /></div>
       <div class="sig__cap">
-        <div class="sig__jp">巻き</div>
+        <div class="sig__jp" lang="ja">巻き</div>
         <div class="sig__name">Momomaki</div>
         <div class="sig__desc">The signature Momotaro roll.</div>
       </div>
@@ -622,20 +701,20 @@ section{position:relative}
     <h2>Shaped by the <em>seasons,</em> the land &amp; the <em>craft</em></h2>
   </div>
   <div class="bento">
-    <figure class="bcell b-1"><img src="images/ig-counter.jpg" alt="Sushi chefs at the illuminated raw bar" /><figcaption class="bcell__cap"><span class="jp">寿司</span>The Counter</figcaption></figure>
-    <figure class="bcell b-2"><img src="images/nigiri.webp" alt="Assorted Momotaro nigiri" /><figcaption class="bcell__cap">Nigiri</figcaption></figure>
-    <figure class="bcell b-3"><img src="images/dish-03.webp" alt="Chef grilling yakitori skewers over an open flame" /><figcaption class="bcell__cap">Charcoal Robata</figcaption></figure>
-    <figure class="bcell b-4"><img src="images/dish-07.webp" alt="Gunkan maki topped with avocado and salmon roe" /><figcaption class="bcell__cap">Gunkan Maki</figcaption></figure>
-    <figure class="bcell b-5"><img src="images/dish-06.webp" alt="Cold crudo with roasted tomato and herbs" /><figcaption class="bcell__cap">Crudo</figcaption></figure>
-    <figure class="bcell b-6"><img src="images/dish-10.webp" alt="Hot stone-pot rice topped with seared beef" /><figcaption class="bcell__cap">Stone-Pot Rice</figcaption></figure>
-    <figure class="bcell b-7"><img src="images/mapo-tofu.webp" alt="Mapo tofu in a clay donabe" /><figcaption class="bcell__cap">Mapo Tofu</figcaption></figure>
+    <figure class="bcell b-1"><img src="images/ig-counter.jpg" alt="Sushi chefs at the illuminated raw bar" width="1000" height="1333" loading="lazy" /><figcaption class="bcell__cap"><span class="jp" lang="ja">寿司</span>The Counter</figcaption></figure>
+    <figure class="bcell b-2"><img src="images/nigiri.webp" alt="Assorted Momotaro nigiri" width="1500" height="1000" loading="lazy" /><figcaption class="bcell__cap">Nigiri</figcaption></figure>
+    <figure class="bcell b-3"><img src="images/dish-03.webp" alt="Chef grilling yakitori skewers over an open flame" width="799" height="1200" loading="lazy" /><figcaption class="bcell__cap">Charcoal Robata</figcaption></figure>
+    <figure class="bcell b-4"><img src="images/dish-07.webp" alt="Gunkan maki topped with avocado and salmon roe" width="1000" height="667" loading="lazy" /><figcaption class="bcell__cap">Gunkan Maki</figcaption></figure>
+    <figure class="bcell b-5"><img src="images/dish-06.webp" alt="Cold crudo with roasted tomato and herbs" width="1050" height="700" loading="lazy" /><figcaption class="bcell__cap">Crudo</figcaption></figure>
+    <figure class="bcell b-6"><img src="images/dish-10.webp" alt="Hot stone-pot rice topped with seared beef" width="800" height="1200" loading="lazy" /><figcaption class="bcell__cap">Stone-Pot Rice</figcaption></figure>
+    <figure class="bcell b-7"><img src="images/mapo-tofu.webp" alt="Mapo tofu in a clay donabe" width="1196" height="795" loading="lazy" /><figcaption class="bcell__cap">Mapo Tofu</figcaption></figure>
   </div>
 </section>
 
 <!-- ================= DINE CTA ================= -->
 <section class="dine" id="reserve">
   <div class="dine__media" data-hero-media>
-    <img src="images/interior.avif" alt="Momotaro Nashville dining room" />
+    <img src="images/interior.avif" alt="Momotaro Nashville dining room" width="2000" height="3000" loading="lazy" />
   </div>
   <div class="dine__inner">
     <div class="eyebrow" data-fade>Dine With Us</div>
@@ -709,12 +788,12 @@ section{position:relative}
     <h2 data-fade><em>@momotaro</em>restaurant</h2>
   </div>
   <div class="insta__strip">
-    <a href="https://www.instagram.com/momotarorestaurant/" target="_blank" rel="noopener"><img src="images/dish-02.webp" alt="Momotaro Nashville on Instagram"/></a>
-    <a href="https://www.instagram.com/momotarorestaurant/" target="_blank" rel="noopener"><img src="images/dish-05.webp" alt="Momotaro Nashville on Instagram"/></a>
-    <a href="https://www.instagram.com/momotarorestaurant/" target="_blank" rel="noopener"><img src="images/dish-09.webp" alt="Momotaro Nashville on Instagram"/></a>
-    <a href="https://www.instagram.com/momotarorestaurant/" target="_blank" rel="noopener"><img src="images/dish-07.webp" alt="Momotaro Nashville on Instagram"/></a>
-    <a href="https://www.instagram.com/momotarorestaurant/" target="_blank" rel="noopener"><img src="images/dish-06.webp" alt="Momotaro Nashville on Instagram"/></a>
-    <a href="https://www.instagram.com/momotarorestaurant/" target="_blank" rel="noopener"><img src="images/dish-08.webp" alt="Momotaro Nashville on Instagram"/></a>
+    <a href="https://www.instagram.com/momotarorestaurant/" target="_blank" rel="noopener"><img src="images/dish-02.webp" alt="Momotaro Nashville on Instagram" width="500" height="334" loading="lazy"/></a>
+    <a href="https://www.instagram.com/momotarorestaurant/" target="_blank" rel="noopener"><img src="images/dish-05.webp" alt="Momotaro Nashville on Instagram" width="500" height="750" loading="lazy"/></a>
+    <a href="https://www.instagram.com/momotarorestaurant/" target="_blank" rel="noopener"><img src="images/dish-09.webp" alt="Momotaro Nashville on Instagram" width="500" height="334" loading="lazy"/></a>
+    <a href="https://www.instagram.com/momotarorestaurant/" target="_blank" rel="noopener"><img src="images/dish-07.webp" alt="Momotaro Nashville on Instagram" width="1000" height="667" loading="lazy"/></a>
+    <a href="https://www.instagram.com/momotarorestaurant/" target="_blank" rel="noopener"><img src="images/dish-06.webp" alt="Momotaro Nashville on Instagram" width="1050" height="700" loading="lazy"/></a>
+    <a href="https://www.instagram.com/momotarorestaurant/" target="_blank" rel="noopener"><img src="images/dish-08.webp" alt="Momotaro Nashville on Instagram" width="1000" height="667" loading="lazy"/></a>
   </div>
 </section>
 
@@ -722,8 +801,8 @@ section{position:relative}
 <footer class="footer wrap" id="footer">
   <div class="footer__top">
     <div class="footer__brand">
-      <img src="images/momotaro-mark.png" alt="Momotaro" />
-      <div class="jp">桃太郎</div>
+      <img src="images/momotaro-mark.png" alt="Momotaro" width="401" height="406" loading="lazy" />
+      <div class="jp" lang="ja">桃太郎</div>
       <p>A modern Japanese dining experience in Nashville's Wedgewood Houston neighborhood, operated by BOKA WH Management, LLC.</p>
     </div>
     <div class="footer__col">
@@ -749,7 +828,7 @@ section{position:relative}
       </div>
       <div class="footer__socials">
         <a href="https://www.instagram.com/momotarorestaurant/" target="_blank" rel="noopener"><img src="images/ig-icon.svg" alt="Instagram"/></a>
-        <a href="https://facebook.com" target="_blank" rel="noopener"><img src="images/facebook-icon.svg" alt="Facebook"/></a>
+        <a href="https://www.facebook.com/momotarorestaurant/" target="_blank" rel="noopener"><img src="images/facebook-icon.svg" alt="Facebook"/></a>
       </div>
     </div>
   </div>
@@ -781,9 +860,9 @@ section{position:relative}
       </button>
     </div>
     <div class="mmodal__body" id="menuModalBody" data-lenis-prevent>
-      <img data-src="images/menu-dinner.png" data-menu="dinner" alt="Momotaro Nashville dinner menu" />
-      <img data-src="images/menu-dessert.png" data-menu="dessert" alt="Momotaro Nashville dessert menu" />
-      <img data-src="images/menu-beverage.png" data-menu="beverage" alt="Momotaro Nashville beverage menu" />
+      <img data-src="images/menu-dinner.png" data-menu="dinner" alt="Momotaro Nashville dinner menu" width="1893" height="7684" />
+      <img data-src="images/menu-dessert.png" data-menu="dessert" alt="Momotaro Nashville dessert menu" width="1893" height="1612" />
+      <img data-src="images/menu-beverage.png" data-menu="beverage" alt="Momotaro Nashville beverage menu" width="1893" height="4280" />
     </div>
   </div>
 </div>
@@ -792,6 +871,7 @@ section{position:relative}
 /* =========================================================
    MOTION ENGINE — Lenis smooth scroll + GSAP ScrollTrigger
    ========================================================= */
+document.addEventListener('DOMContentLoaded', function(){
 gsap.registerPlugin(ScrollTrigger);
 const isMobile = window.matchMedia('(max-width:900px)').matches;
 const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1042,6 +1122,7 @@ window.addEventListener('load',()=>{
   // warm the menu images (data-src -> src) so the lightbox opens instantly
   setTimeout(()=>document.querySelectorAll('#menuModalBody img[data-src]').forEach(i=>{if(!i.getAttribute('src'))i.src=i.dataset.src;}),1200);
 });
+}); // end DOMContentLoaded
 </script>
 </body>
 </html>
