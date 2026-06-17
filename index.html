@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Momotaro Nashville — Japanese Restaurant in Nashville, TN</title>
+<meta name="description" content="Momotaro arrives in Nashville's Wedgewood Houston neighborhood — tightly executed Japanese cuisine, deeply personal service, and an unwavering respect for tradition." />
+
+<!-- Exact Momotaro brand fonts (Adobe Fonts kit): minerva-modern (logo serif) + futura-pt (sans) -->
+<link rel="stylesheet" href="https://use.typekit.net/oue3qhm.css" />
+<!-- Free fallbacks so type still renders if the Adobe kit is blocked: Cormorant ≈ Minerva, Jost ≈ Futura, Shippori Mincho for Japanese -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&family=Shippori+Mincho:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<!-- Motion: GSAP + ScrollTrigger + Lenis -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+
+<style>
+/* =========================================================
+   MOMOTARO NASHVILLE — recreated with Amrit-grade motion
+   Palette + type pulled from Momotaro's real brand system
+   ========================================================= */
+:root{
+  --noir:#161616;
+  --noir-deep:#0d0d0d;
+  --beige:#e0d9ce;
+  --cream:#f4efe7;
+  --peach:#e58c7e;
+  --peach-soft:#eaa79b;
+  --gold:#e2a81a;
+  --grey:#8f8c8c;
+  --line:rgba(224,217,206,0.16);
+  --serif:'minerva-modern', 'Cormorant Garamond', Georgia, serif;
+  --jp:'Shippori Mincho', 'minerva-modern', 'Cormorant Garamond', serif;
+  --sans:'futura-pt', 'Jost', 'Helvetica Neue', Arial, sans-serif;
+  --ease:cubic-bezier(0.65,0.05,0.1,1);
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--noir);color:var(--beige)}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+body{
+  font-family:var(--sans);
+  font-weight:300;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+  letter-spacing:.01em;
+}
+::selection{background:var(--peach);color:var(--noir-deep)}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+
+/* ---------- Film grain + vignette ---------- */
+.grain{
+  position:fixed;inset:-50%;z-index:9000;pointer-events:none;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation:grain 0.6s steps(4) infinite;
+}
+@keyframes grain{
+  0%{transform:translate(0,0)}25%{transform:translate(-3%,2%)}
+  50%{transform:translate(2%,-3%)}75%{transform:translate(-2%,-2%)}100%{transform:translate(2%,3%)}
+}
+.vignette{position:fixed;inset:0;z-index:8000;pointer-events:none;
+  box-shadow:inset 0 0 220px 60px rgba(0,0,0,.55);}
+
+/* ---------- Custom cursor ---------- */
+.cursor{position:fixed;top:0;left:0;width:8px;height:8px;border-radius:50%;
+  background:var(--peach);z-index:10000;pointer-events:none;transform:translate(-50%,-50%);
+  mix-blend-mode:difference;transition:width .35s var(--ease),height .35s var(--ease),background .35s}
+.cursor-ring{position:fixed;top:0;left:0;width:38px;height:38px;border:1px solid rgba(229,140,126,.5);
+  border-radius:50%;z-index:9999;pointer-events:none;transform:translate(-50%,-50%);
+  transition:width .4s var(--ease),height .4s var(--ease),opacity .4s,border-color .4s}
+body.cursor-hover .cursor{width:0;height:0}
+body.cursor-hover .cursor-ring{width:64px;height:64px;border-color:var(--peach)}
+@media (hover:none),(max-width:900px){.cursor,.cursor-ring{display:none}}
+
+/* ---------- Preloader ---------- */
+.loader{position:fixed;inset:0;z-index:11000;background:var(--noir-deep);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.loader__circle{width:clamp(160px,32vw,210px);height:auto;opacity:0;transform:scale(.82);
+  animation:circleIn 1.3s var(--ease) .1s forwards;filter:drop-shadow(0 0 34px rgba(229,140,126,.3))}
+@keyframes circleIn{to{opacity:.98;transform:scale(1)}}
+.loader__welcome{font-family:var(--jp);font-size:clamp(1.4rem,3vw,2.1rem);color:var(--peach);
+  margin-top:26px;letter-spacing:.35em;opacity:0;transform:translateY(14px);
+  animation:fadeUp 1s var(--ease) .5s forwards}
+.loader__sub{font-family:var(--sans);font-size:.62rem;letter-spacing:.55em;text-transform:uppercase;
+  color:var(--grey);margin-top:14px;opacity:0;animation:fadeUp 1s var(--ease) .75s forwards}
+@keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+.loader__count{position:absolute;bottom:7vh;right:7vw;font-family:var(--serif);
+  font-size:clamp(3rem,9vw,7rem);font-weight:300;color:var(--beige);line-height:1;
+  font-variant-numeric:tabular-nums;opacity:.9}
+.loader__bar{position:absolute;bottom:0;left:0;height:2px;width:0%;background:var(--peach)}
+.loader__label{position:absolute;bottom:7vh;left:7vw;font-size:.6rem;letter-spacing:.5em;
+  text-transform:uppercase;color:var(--grey)}
+
+/* ---------- Nav ---------- */
+.nav{position:fixed;top:0;left:0;width:100%;z-index:5000;
+  padding:26px clamp(20px,5vw,64px);display:flex;align-items:center;justify-content:space-between;
+  transition:background .6s var(--ease),padding .6s var(--ease),backdrop-filter .6s}
+.nav.scrolled{background:rgba(13,13,13,.72);backdrop-filter:blur(14px);padding:16px clamp(20px,5vw,64px);
+  border-bottom:1px solid var(--line)}
+.nav__brand{display:flex;align-items:center;gap:14px}
+.nav__brand img{height:72px;width:auto;opacity:.95;transition:height .6s var(--ease)}
+.nav.scrolled .nav__brand img{height:58px}
+.nav__brand-text{font-family:var(--sans);font-weight:500;font-size:1.05rem;letter-spacing:.26em;text-transform:uppercase;color:var(--cream)}
+.nav__links{display:flex;align-items:center;gap:38px}
+.nav__links a{font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--beige);
+  position:relative;opacity:.82;transition:opacity .4s}
+.nav__links a::after{content:"";position:absolute;left:0;bottom:-6px;width:0;height:1px;background:var(--peach);transition:width .45s var(--ease)}
+.nav__links a:hover{opacity:1}
+.nav__links a:hover::after{width:100%}
+.nav__reserve{border:1px solid var(--peach);color:var(--peach);padding:11px 26px;border-radius:40px;
+  font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;transition:all .45s var(--ease);overflow:hidden;position:relative}
+.nav__reserve span{position:relative;z-index:2;transition:color .45s}
+.nav__reserve::before{content:"";position:absolute;inset:0;background:var(--peach);transform:translateY(101%);transition:transform .45s var(--ease)}
+.nav__reserve:hover::before{transform:translateY(0)}
+.nav__reserve:hover span{color:var(--noir-deep)}
+.nav__burger{display:none;flex-direction:column;gap:6px;width:30px}
+.nav__burger span{height:1.5px;width:100%;background:var(--beige);transition:.4s}
+@media(max-width:900px){
+  .nav__links{position:fixed;top:0;left:0;width:100vw;height:100vh;height:100dvh;
+    background:var(--noir-deep);flex-direction:column;justify-content:center;
+    gap:30px;transform:translateY(-105%);transition:transform .6s var(--ease);z-index:-1}
+  .nav__links.open{transform:translateY(0)}
+  .nav__links a{font-size:1.1rem}
+  .nav__burger{display:flex}
+  .nav__brand-text{font-size:1rem}
+}
+
+/* ---------- Layout helpers ---------- */
+section{position:relative}
+.wrap{padding-left:clamp(20px,6vw,120px);padding-right:clamp(20px,6vw,120px)}
+.eyebrow{font-size:.66rem;letter-spacing:.5em;text-transform:uppercase;color:var(--peach);
+  display:flex;align-items:center;gap:14px}
+.eyebrow::before{content:"";width:34px;height:1px;background:var(--peach);display:inline-block}
+.reveal-line{display:block;overflow:hidden}
+.reveal-line>span{display:block;will-change:transform}
+
+/* ---------- Hero ---------- */
+.hero{height:100vh;min-height:680px;overflow:hidden;display:flex;align-items:flex-end}
+.hero__media{position:absolute;inset:0;z-index:0;overflow:hidden}
+.hero__media img{width:100%;height:120%;object-fit:cover;transform:scale(1.18);
+  will-change:transform;filter:brightness(.62) saturate(1.05)}
+.hero__media::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(13,13,13,.9) 0%,rgba(13,13,13,.15) 45%,rgba(13,13,13,.45) 100%)}
+.hero__inner{position:relative;z-index:2;width:100%;padding-bottom:clamp(50px,9vh,110px)}
+.hero__jp{font-family:var(--jp);font-size:clamp(1rem,2.2vw,1.4rem);color:var(--peach);letter-spacing:.3em;margin-bottom:18px}
+/* MOMOTARO logotype — set in the brand's logomark font (futura-pt), wide-tracked caps */
+.hero__title{font-family:var(--sans);font-weight:400;font-size:clamp(2.7rem,11.5vw,12.5rem);line-height:.92;
+  color:var(--cream);letter-spacing:.06em;text-transform:uppercase}
+.hero__sub{display:inline-flex;align-items:center;gap:18px;margin-top:24px;
+  font-family:var(--sans);font-weight:400;font-size:clamp(.74rem,1.4vw,1.05rem);letter-spacing:.42em;
+  text-transform:uppercase;color:var(--peach)}
+.hero__sub .line{width:clamp(34px,5vw,62px);height:1px;background:var(--peach);opacity:.55;display:inline-block}
+.hero__meta{display:flex;flex-wrap:wrap;gap:30px 60px;margin-top:44px;align-items:flex-end;justify-content:space-between}
+.hero__loc{font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--beige);opacity:.85;line-height:1.9}
+.hero__scroll{display:flex;align-items:center;gap:14px;font-size:.62rem;letter-spacing:.4em;text-transform:uppercase;color:var(--grey)}
+.hero__scroll .dot{width:46px;height:46px;border:1px solid var(--line);border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative}
+.hero__scroll .dot::after{content:"";width:1px;height:14px;background:var(--peach);position:absolute;animation:scrolldot 1.8s var(--ease) infinite}
+@keyframes scrolldot{0%{transform:translateY(-8px);opacity:0}40%{opacity:1}100%{transform:translateY(8px);opacity:0}}
+
+/* ---------- Marquee ---------- */
+.marquee{padding:34px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  overflow:hidden;white-space:nowrap;background:var(--noir-deep)}
+.marquee__track{display:inline-flex;align-items:center;gap:50px;will-change:transform}
+.marquee__track span{font-family:var(--serif);font-style:italic;font-size:clamp(1.6rem,4vw,3rem);
+  color:var(--beige);opacity:.75}
+.marquee__track .dot{width:9px;height:9px;border-radius:50%;background:var(--peach);flex:0 0 auto}
+
+/* ---------- About ---------- */
+.about{padding-top:clamp(90px,14vh,180px);padding-bottom:clamp(90px,14vh,180px)}
+.about__grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,7vw,120px);align-items:center}
+.about__title{font-family:var(--serif);font-weight:300;font-size:clamp(2.1rem,4.2vw,4.2rem);line-height:1.04;color:var(--cream);margin:26px 0 0}
+.about__title em{font-style:italic;color:var(--peach)}
+.about__copy p{font-size:1.02rem;line-height:1.9;color:var(--beige);opacity:.82;margin-top:26px;max-width:38ch}
+.about__img{position:relative;overflow:hidden;border-radius:2px;aspect-ratio:4/5;will-change:clip-path}
+.about__img img{width:100%;height:114%;object-fit:cover;will-change:transform;filter:saturate(1.05)}
+.about__frame{position:absolute;inset:14px;border:1px solid rgba(244,239,231,.28);pointer-events:none;z-index:3}
+.about__tag{position:absolute;left:24px;bottom:22px;z-index:4;font-family:var(--sans);font-size:.6rem;
+  letter-spacing:.28em;text-transform:uppercase;color:var(--cream);
+  background:rgba(13,13,13,.45);backdrop-filter:blur(6px);padding:9px 16px;border-radius:30px}
+@media(max-width:900px){.about__grid{grid-template-columns:1fr}}
+
+/* ---------- Hours strip ---------- */
+.hours{padding:clamp(50px,9vh,110px) clamp(20px,6vw,120px);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.hours__grid{display:grid;grid-template-columns:auto auto auto;justify-content:start;gap:clamp(38px,5vw,64px);align-items:center}
+.hours .btn-reserve{padding:17px 66px}
+.hours__label{font-size:.66rem;letter-spacing:.4em;text-transform:uppercase;color:var(--peach)}
+.hours__rows{display:flex;flex-wrap:wrap;gap:14px 70px}
+.hours__row .d{font-family:var(--serif);font-size:clamp(1.5rem,3vw,2.4rem);color:var(--cream);font-style:italic}
+.hours__row .t{font-size:.82rem;letter-spacing:.12em;color:var(--grey);text-transform:uppercase;margin-top:2px}
+.btn-reserve{border:1px solid var(--peach);color:var(--peach);padding:16px 40px;border-radius:40px;
+  font-size:.7rem;letter-spacing:.26em;text-transform:uppercase;position:relative;overflow:hidden;display:inline-block}
+.btn-reserve span{position:relative;z-index:2;transition:color .5s}
+.btn-reserve::before{content:"";position:absolute;inset:0;background:var(--peach);transform:translateY(101%);transition:transform .5s var(--ease)}
+.btn-reserve:hover::before{transform:translateY(0)}
+.btn-reserve:hover span{color:var(--noir-deep)}
+@media(max-width:900px){
+  .hours__grid{grid-template-columns:1fr;gap:30px;text-align:center;justify-items:center}
+  .hours__rows{flex-direction:column;gap:24px;align-items:center;width:100%}
+  .hours__row{text-align:center}
+  .hours .btn-reserve{justify-self:center;padding:14px 48px}
+}
+
+/* ---------- Menu ---------- */
+.menu{padding-top:clamp(90px,14vh,180px);padding-bottom:clamp(60px,9vh,120px)}
+.menu__head{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:30px;margin-bottom:clamp(40px,7vh,90px)}
+.menu__title{font-family:var(--serif);font-weight:300;font-size:clamp(2.1rem,4.7vw,4.6rem);line-height:1;color:var(--cream)}
+.menu__title em{font-style:italic;color:var(--peach)}
+.menu__list{border-top:1px solid var(--line)}
+.menu__item{display:grid;grid-template-columns:auto 1fr auto;gap:clamp(20px,5vw,80px);align-items:center;
+  padding:clamp(28px,4vw,52px) 0;border-bottom:1px solid var(--line);position:relative;transition:padding-left .6s var(--ease)}
+.menu__item:hover{padding-left:20px}
+.menu__num{font-family:var(--serif);font-size:1.1rem;color:var(--peach);font-style:italic}
+.menu__body h3{font-family:var(--serif);font-weight:400;font-size:clamp(2rem,4.5vw,3.6rem);color:var(--cream);line-height:1;transition:color .5s}
+.menu__item:hover .menu__body h3{color:var(--peach)}
+.menu__body .when{font-size:.66rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-top:10px;display:inline-block}
+.menu__body p{font-size:.98rem;color:var(--beige);opacity:.72;margin-top:14px;max-width:52ch;line-height:1.8}
+.menu__link{font-size:.66rem;letter-spacing:.28em;text-transform:uppercase;color:var(--beige);display:flex;align-items:center;gap:12px;white-space:nowrap}
+.menu__link .arr{width:34px;height:34px;border:1px solid var(--line);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:.5s var(--ease)}
+.menu__item:hover .menu__link .arr{background:var(--peach);border-color:var(--peach);transform:rotate(-45deg)}
+.menu__item:hover .menu__link .arr svg{stroke:var(--noir-deep)}
+.menu__cta{text-align:center;margin-top:clamp(40px,6vh,70px)}
+.menu__note{text-align:center;font-size:.78rem;letter-spacing:.04em;color:var(--grey);margin-top:18px}
+@media(max-width:900px){
+  .menu__item{grid-template-columns:1fr;gap:14px}
+  .menu__link{display:none}
+}
+
+/* ---------- Signature dishes + Japanese quote ---------- */
+.menu__quote{text-align:center;margin:clamp(56px,10vh,120px) auto clamp(40px,7vh,80px);max-width:760px}
+.menu__quote .jp{font-family:var(--jp);font-size:clamp(1.15rem,2.6vw,1.8rem);color:var(--beige);line-height:1.85;letter-spacing:.1em}
+.menu__quote .tr{font-family:var(--serif);font-style:italic;font-size:clamp(1.1rem,2.2vw,1.55rem);color:var(--peach);margin-top:16px}
+.menu__quote .by{font-size:.6rem;letter-spacing:.42em;text-transform:uppercase;color:var(--grey);margin-top:18px}
+.menu__quote .by::before{content:"— "}
+.sig{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2.2vw,32px)}
+.sig__card{position:relative;overflow:hidden;border-radius:3px;background:var(--noir-deep)}
+.sig__media{position:relative;overflow:hidden;aspect-ratio:4/5}
+.sig__media img{width:100%;height:100%;object-fit:cover;transform:scale(1.06);transition:transform 1.1s var(--ease);filter:brightness(.84) saturate(1.05)}
+.sig__card:hover .sig__media img{transform:scale(1.13)}
+.sig__media::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(13,13,13,.9),rgba(13,13,13,0) 58%)}
+.sig__cap{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:clamp(18px,2vw,26px)}
+.sig__jp{font-family:var(--jp);color:var(--peach);font-size:1.05rem;letter-spacing:.14em;margin-bottom:6px}
+.sig__name{font-family:var(--serif);font-size:clamp(1.5rem,2.4vw,2rem);color:var(--cream);line-height:1}
+.sig__desc{font-size:.8rem;color:var(--beige);opacity:.74;margin-top:9px;line-height:1.6;letter-spacing:.02em}
+.sig__num{position:absolute;top:16px;right:20px;z-index:2;font-family:var(--serif);font-style:italic;color:var(--peach);font-size:1rem;text-shadow:0 1px 10px rgba(0,0,0,.6)}
+@media(max-width:760px){.sig{grid-template-columns:1fr;max-width:420px;margin:0 auto}}
+
+/* ---------- The Table — bento grid with scroll reveal ---------- */
+.gallery{background:var(--noir-deep);overflow:hidden;padding:clamp(70px,11vh,150px) 0}
+.gallery__head{margin-bottom:clamp(34px,6vh,64px);max-width:560px}
+.gallery__head .eyebrow{margin-bottom:20px}
+.gallery__head h2{font-family:var(--serif);font-weight:300;font-size:clamp(2rem,3.6vw,3.5rem);line-height:1.06;color:var(--cream)}
+.gallery__head h2 em{font-style:italic;color:var(--peach)}
+.bento{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:clamp(128px,15vw,228px);
+  grid-auto-flow:dense;gap:clamp(10px,1.1vw,16px)}
+.bcell{position:relative;overflow:hidden;border-radius:3px;background:var(--noir);will-change:clip-path}
+.bcell img{width:100%;height:100%;object-fit:cover;transition:transform 1.1s var(--ease),filter 1.1s;filter:saturate(1.05) brightness(.9)}
+.bcell:hover img{transform:scale(1.07);filter:saturate(1.1) brightness(1)}
+.bcell::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(13,13,13,.72),rgba(13,13,13,0) 52%)}
+.bcell__cap{position:absolute;left:16px;bottom:14px;z-index:2;font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;color:var(--cream)}
+.bcell__cap .jp{display:block;font-family:var(--jp);font-size:.92rem;letter-spacing:.12em;color:var(--peach);margin-bottom:4px;text-transform:none}
+.b-1{grid-column:span 2;grid-row:span 2}   /* feature */
+.b-3{grid-row:span 2}                        /* tall */
+.b-5{grid-column:span 2}                      /* wide */
+@media(max-width:760px){
+  .bento{grid-template-columns:repeat(2,1fr);grid-auto-rows:44vw;gap:10px}
+  .b-1{grid-column:span 2;grid-row:span 2}
+  .b-3{grid-row:span 1}
+  .b-5{grid-column:span 2}
+}
+
+/* ---------- Dine CTA ---------- */
+.dine{height:100vh;min-height:620px;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden}
+.dine__media{position:absolute;inset:0;z-index:0;overflow:hidden}
+.dine__media img{width:100%;height:120%;object-fit:cover;transform:scale(1.2);will-change:transform;filter:brightness(.5)}
+.dine__media::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at center,rgba(13,13,13,.35),rgba(13,13,13,.82))}
+.dine__inner{position:relative;z-index:2;max-width:900px;padding:0 24px}
+.dine__inner .eyebrow{justify-content:center;margin-bottom:24px}
+.dine__inner h2{font-family:var(--serif);font-weight:300;font-size:clamp(2.3rem,6.2vw,5.4rem);line-height:.98;color:var(--cream)}
+.dine__inner h2 em{font-style:italic;color:var(--peach)}
+.dine__inner p{font-size:1.05rem;line-height:1.9;color:var(--beige);opacity:.85;max-width:54ch;margin:30px auto 40px}
+
+/* ---------- Instagram ---------- */
+.insta{padding:clamp(70px,11vh,140px) 0 0}
+.insta__head{text-align:center;margin-bottom:clamp(40px,6vh,70px)}
+.insta__head .eyebrow{justify-content:center;margin-bottom:18px}
+.insta__head h2{font-family:var(--serif);font-weight:300;font-size:clamp(1.8rem,4vw,3.5rem);color:var(--cream)}
+.insta__head h2 em{font-style:italic;color:var(--peach)}
+.insta__strip{display:flex;gap:14px;overflow:hidden}
+.insta__strip a{flex:1;aspect-ratio:1;overflow:hidden;position:relative}
+.insta__strip img{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease),filter .7s;filter:grayscale(.25) brightness(.85)}
+.insta__strip a:hover img{transform:scale(1.08);filter:grayscale(0) brightness(1)}
+.insta__strip a::after{content:"";position:absolute;inset:0;background:rgba(229,140,126,0);transition:background .5s}
+.insta__strip a:hover::after{background:rgba(229,140,126,.12)}
+@media(max-width:760px){.insta__strip a:nth-child(n+5){display:none}}
+
+/* ---------- Gift Cards (Share the Experience) ---------- */
+.giftcards{background:var(--beige);color:var(--noir);overflow:hidden;
+  padding:clamp(90px,15vh,200px) 0}
+.giftcards .wrap{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,90px);align-items:center}
+.gc-copy .eyebrow{color:#a86a5b}
+.gc-copy .eyebrow::before{background:#a86a5b}
+.gc-copy h2{font-family:var(--serif);font-weight:300;font-size:clamp(2.1rem,4.4vw,4.2rem);
+  line-height:1;color:var(--noir);margin:24px 0 0}
+.gc-copy h2 em{font-style:italic;color:#c46b54}
+.gc-copy p{font-size:1.02rem;line-height:1.85;color:#4a423c;max-width:40ch;margin-top:26px}
+.gc-btn{display:inline-block;margin-top:36px;border:1px solid var(--noir);color:var(--noir);
+  padding:16px 42px;border-radius:40px;font-size:.7rem;letter-spacing:.26em;text-transform:uppercase;
+  position:relative;overflow:hidden}
+.gc-btn span{position:relative;z-index:2;transition:color .5s}
+.gc-btn::before{content:"";position:absolute;inset:0;background:var(--noir);transform:translateY(101%);transition:transform .5s var(--ease)}
+.gc-btn:hover::before{transform:translateY(0)}
+.gc-btn:hover span{color:var(--beige)}
+
+.gc-stage{position:relative;height:clamp(420px,46vw,560px);width:100%;perspective:1400px;transform-style:preserve-3d}
+.gc-card{position:absolute;top:50%;left:50%;width:clamp(190px,17vw,250px);aspect-ratio:5/7;
+  margin:0;border-radius:14px;will-change:transform;
+  -webkit-mask:radial-gradient(circle 24px at 50% 0,transparent 0 24px,#000 25px);
+  mask:radial-gradient(circle 24px at 50% 0,transparent 0 24px,#000 25px);
+  filter:drop-shadow(0 26px 34px rgba(40,30,20,.32));
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:46px 18px 26px;text-align:center}
+.gc-card .corner{position:absolute;width:18px;height:18px;opacity:.85}
+.gc-card .corner.tl{top:42px;left:16px}
+.gc-card .corner.br{bottom:18px;right:16px;transform:rotate(180deg)}
+.gc-card .gc-jp{font-family:var(--jp);font-size:1.4rem;letter-spacing:.12em;margin-bottom:8px}
+.gc-card .gc-name{font-family:var(--serif);font-size:1.5rem;letter-spacing:.06em;line-height:1}
+.gc-card .gc-rule{width:30px;height:1px;margin:12px auto;opacity:.55}
+.gc-card .gc-sub{font-size:.54rem;letter-spacing:.34em;text-transform:uppercase;margin-top:14px}
+.gc-card .gc-value{font-family:var(--serif);font-size:1.6rem;line-height:1;margin-top:14px;letter-spacing:.02em}
+.gc-card .gc-value + .gc-sub{margin-top:5px}
+/* real Momotaro logo lockup, tinted to each card's ink via currentColor */
+.gc-card .gc-logo{width:64%;max-width:150px;aspect-ratio:401/406;margin:0 auto;background:currentColor;
+  -webkit-mask:url("images/logo.png") center/contain no-repeat;mask:url("images/logo.png") center/contain no-repeat}
+.gc-card .gc-micro{position:absolute;bottom:20px;left:0;right:0;font-size:.42rem;
+  letter-spacing:.22em;text-transform:uppercase;opacity:.6}
+/* card colorways (warm, on-brand) */
+.gc-c1{background:#161616;color:var(--beige)} .gc-c1 .corner{color:var(--gold)} .gc-c1 .gc-rule{background:var(--gold)}
+.gc-c2{background:#e58c7e;color:#2a1714} .gc-c2 .corner{color:#2a1714} .gc-c2 .gc-rule{background:#2a1714}
+.gc-c3{background:#cabfae;color:#2c2622} .gc-c3 .corner{color:#2c2622} .gc-c3 .gc-rule{background:#2c2622}
+.gc-c4{background:#f4efe7;color:#2c2622} .gc-c4 .corner{color:#c46b54} .gc-c4 .gc-rule{background:#c46b54}
+.gc-c5{background:#a9763f;color:#f4efe7} .gc-c5 .corner{color:#f4efe7} .gc-c5 .gc-rule{background:#f4efe7}
+.gc-card .corner svg{width:100%;height:100%;display:block;stroke:currentColor}
+@media(max-width:900px){
+  .giftcards .wrap{grid-template-columns:1fr;gap:50px;text-align:center}
+  .gc-copy .eyebrow{justify-content:center}
+  .gc-copy p{margin-left:auto;margin-right:auto}
+  .gc-stage{height:clamp(360px,90vw,460px)}
+  .gc-card{width:clamp(150px,42vw,200px)}
+}
+
+/* ---------- Menu lightbox modal ---------- */
+.mmodal{position:fixed;inset:0;z-index:9500;display:flex;align-items:center;justify-content:center;
+  padding:clamp(10px,3vw,46px);opacity:0;visibility:hidden;transition:opacity .5s var(--ease),visibility .5s}
+.mmodal.open{opacity:1;visibility:visible}
+.mmodal__bg{position:absolute;inset:0;background:rgba(8,8,8,.84);backdrop-filter:blur(10px)}
+.mmodal__panel{position:relative;z-index:2;width:min(1893px,98vw);max-height:94vh;display:flex;flex-direction:column;
+  background:var(--noir-deep);border:1px solid var(--line);border-radius:6px;overflow:hidden;
+  transform:translateY(34px) scale(.98);transition:transform .6s var(--ease);box-shadow:0 40px 120px rgba(0,0,0,.6)}
+.mmodal.open .mmodal__panel{transform:none}
+.mmodal__head{display:flex;align-items:center;justify-content:space-between;gap:18px;flex:0 0 auto;
+  padding:16px clamp(14px,2.6vw,26px);border-bottom:1px solid var(--line);background:var(--noir-deep)}
+.mmodal__tabs{display:flex;gap:8px}
+.mtab{font-family:var(--sans);font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--beige);
+  opacity:.6;padding:9px 20px;border:1px solid transparent;border-radius:30px;transition:.4s var(--ease)}
+.mtab:hover{opacity:1}
+.mtab.active{opacity:1;color:var(--peach);border-color:var(--peach)}
+.mmodal__close{width:42px;height:42px;border:1px solid var(--line);border-radius:50%;display:flex;align-items:center;
+  justify-content:center;color:var(--beige);flex:0 0 auto;transition:.45s var(--ease)}
+.mmodal__close:hover{background:var(--peach);color:var(--noir-deep);border-color:var(--peach);transform:rotate(90deg)}
+.mmodal__body{overflow:auto;-webkit-overflow-scrolling:touch;flex:1 1 auto;background:#0c0c0c}
+.mmodal__body img{width:100%;display:none;margin:0 auto}            /* mobile: fit to width */
+@media(min-width:760px){
+  .mmodal__body img{width:1893px;max-width:none;cursor:zoom-in}     /* desktop: full native size = largest crisp text */
+  .mmodal__body.zoomed img{width:2560px;cursor:zoom-out}            /* click to enlarge further */
+}
+.mmodal__body img.active{display:block}
+.mmodal__body::-webkit-scrollbar{width:9px;height:9px}
+.mmodal__body::-webkit-scrollbar-thumb{background:rgba(229,140,126,.4);border-radius:9px}
+@media(max-width:600px){.mmodal__tabs{gap:4px}.mtab{padding:8px 13px;font-size:.56rem;letter-spacing:.1em}}
+
+/* ---------- Footer ---------- */
+.footer{padding:clamp(80px,12vh,150px) clamp(20px,6vw,120px) 40px;border-top:1px solid var(--line);margin-top:clamp(70px,11vh,140px)}
+.footer__top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:50px}
+.footer__brand img{width:110px;height:auto;margin-bottom:24px;opacity:.95}
+.footer__brand .jp{font-family:var(--jp);color:var(--peach);font-size:1.3rem;letter-spacing:.25em;margin-bottom:10px}
+.footer__brand p{font-size:.86rem;color:var(--grey);line-height:1.9;max-width:30ch}
+.footer__col h4{font-size:.64rem;letter-spacing:.4em;text-transform:uppercase;color:var(--peach);margin-bottom:22px}
+.footer__col a,.footer__col p{display:block;font-size:.92rem;color:var(--beige);opacity:.8;margin-bottom:13px;transition:opacity .4s,transform .4s;line-height:1.6}
+.footer__col a:hover{opacity:1;color:var(--peach);transform:translateX(4px)}
+.footer__news{display:flex;border-bottom:1px solid var(--line);margin:14px 0 18px;align-items:center}
+.footer__news input{background:none;border:none;color:var(--cream);font-family:var(--sans);font-size:.9rem;padding:10px 0;width:100%}
+.footer__news input::placeholder{color:var(--grey)}
+.footer__news button{font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--peach);white-space:nowrap}
+.footer__socials{display:flex;gap:16px;margin-top:8px}
+.footer__socials a{width:42px;height:42px;border:1px solid var(--line);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:.4s}
+.footer__socials a:hover{background:var(--peach);border-color:var(--peach)}
+.footer__socials img{width:16px;filter:brightness(0) saturate(100%) invert(92%) sepia(8%) saturate(300%) hue-rotate(2deg)}
+.footer__bigword{display:block;width:100%;height:auto;margin:clamp(36px,6vh,72px) 0 24px;user-select:none}
+.footer__bigword text{fill:var(--cream);font-family:var(--sans);font-weight:400}
+.footer__bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;padding-top:30px;border-top:1px solid var(--line);
+  font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--grey)}
+.footer__bottom a{transition:color .4s}.footer__bottom a:hover{color:var(--peach)}
+.footer__legal{display:flex;gap:26px;flex-wrap:wrap}
+@media(max-width:900px){.footer__top{grid-template-columns:1fr 1fr;gap:40px}}
+@media(max-width:560px){.footer__top{grid-template-columns:1fr}}
+
+/* fade-up util baseline (JS animates) */
+[data-fade]{opacity:0;transform:translateY(40px)}
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+<div class="vignette"></div>
+<div class="cursor"></div>
+<div class="cursor-ring"></div>
+
+<!-- ================= PRELOADER ================= -->
+<div class="loader" id="loader">
+  <img class="loader__circle" src="images/logo.png" alt="Momotaro Nashville" />
+  <div class="loader__welcome">ようこそ</div>
+  <div class="loader__label">Nashville · TN</div>
+  <div class="loader__count" id="count">0</div>
+  <div class="loader__bar" id="bar"></div>
+</div>
+
+<!-- ================= NAV ================= -->
+<nav class="nav" id="nav">
+  <a class="nav__brand" href="#top">
+    <img src="images/momotaro-mark.png" alt="Momotaro" />
+  </a>
+  <div class="nav__links" id="navlinks">
+    <a href="#about">About</a>
+    <a href="#menu">Menu</a>
+    <a href="#gallery">Private Dining</a>
+    <a href="#footer">Contact</a>
+    <a class="nav__reserve" href="https://www.opentable.com/r/momotaro-nashville" target="_blank" rel="noopener"><span>Reserve</span></a>
+  </div>
+  <button class="nav__burger" id="burger"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="top">
+  <div class="hero__media" data-hero-media>
+    <img src="images/sushi-huge.avif" alt="Momotaro Nashville chef's nigiri selection" />
+  </div>
+  <div class="hero__inner wrap">
+    <div class="hero__jp" data-hero="1">ようこそ · Welcome</div>
+    <h1 class="hero__title">
+      <span class="reveal-line"><span data-hero-line>Momotaro</span></span>
+    </h1>
+    <div class="hero__sub" data-hero="2"><span class="line"></span> Nashville · Tennessee</div>
+    <div class="hero__meta">
+      <div class="hero__loc" data-hero="2">
+        519 Houston Street,<br/>Nashville TN 37203<br/>
+        <span style="color:var(--peach)">Wedgewood Houston</span>
+      </div>
+      <div class="hero__scroll" data-hero="3">
+        <span class="dot"></span> Scroll to explore
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MARQUEE ================= -->
+<div class="marquee">
+  <div class="marquee__track" id="marquee">
+    <span>Traditional Technique</span><i class="dot"></i>
+    <span>Contemporary Elegance</span><i class="dot"></i>
+    <span>季節 · Seasonal</span><i class="dot"></i>
+    <span>Robata · Sashimi</span><i class="dot"></i>
+    <span>Traditional Technique</span><i class="dot"></i>
+    <span>Contemporary Elegance</span><i class="dot"></i>
+    <span>季節 · Seasonal</span><i class="dot"></i>
+    <span>Robata · Sashimi</span><i class="dot"></i>
+  </div>
+</div>
+
+<!-- ================= ABOUT ================= -->
+<section class="about wrap" id="about">
+  <div class="about__grid">
+    <div>
+      <div class="eyebrow" data-fade>About Momotaro Nashville</div>
+      <h2 class="about__title">
+        <span class="reveal-line"><span data-line>Traditional Technique</span></span>
+        <span class="reveal-line"><span data-line>&amp; <em>Contemporary</em></span></span>
+        <span class="reveal-line"><span data-line><em>Elegance</em></span></span>
+      </h2>
+      <div class="about__copy">
+        <p data-fade>Momotaro arrives in Nashville's Wedgewood Houston neighborhood, carrying forward the philosophy that has defined its celebrated Chicago home — tightly executed cuisine, deeply personal service, and an unwavering respect for Japanese culinary tradition.</p>
+        <p data-fade>Led by Chef Partner Gene Kato and the Boka Restaurant Group, Momotaro Nashville is a new chapter in a story that has always been rooted in craft — a modern dining experience shaped by the seasons, the land, and the enduring elegance of Japanese cooking.</p>
+      </div>
+    </div>
+    <div class="about__img" data-about-img>
+      <img src="images/sushi-brg.avif" alt="Wagyu, uni and caviar maki at Momotaro Nashville" />
+      <span class="about__frame"></span>
+      <span class="about__tag">Wagyu · Uni · Caviar</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= HOURS ================= -->
+<section class="hours wrap">
+  <div class="hours__grid">
+    <div class="hours__label" data-fade>Dining<br/>Hours</div>
+    <div class="hours__rows" data-fade>
+      <div class="hours__row">
+        <div class="d">Sunday &amp; Monday</div>
+        <div class="t">Closed</div>
+      </div>
+      <div class="hours__row">
+        <div class="d">Tuesday — Saturday</div>
+        <div class="t">4:30pm – 10:00pm</div>
+      </div>
+    </div>
+    <a class="btn-reserve" href="https://www.opentable.com/r/momotaro-nashville" target="_blank" rel="noopener" data-fade><span>Reserve</span></a>
+  </div>
+</section>
+
+<!-- ================= MENU ================= -->
+<section class="menu wrap" id="menu">
+  <div class="menu__head">
+    <div>
+      <div class="eyebrow" data-fade>Our Menu</div>
+      <h2 class="menu__title">
+        <span class="reveal-line"><span data-line>Explore the</span></span>
+        <span class="reveal-line"><span data-line><em>Full Experience</em></span></span>
+      </h2>
+    </div>
+  </div>
+  <div class="menu__list">
+    <a class="menu__item" href="#" data-open-menu="dinner" data-fade>
+      <div class="menu__num">01</div>
+      <div class="menu__body">
+        <h3>Dinner</h3>
+        <span class="when">5 – 11 PM</span>
+        <p>A full evening of seasonal Japanese cuisine — sashimi, robata, and chef-driven plates.</p>
+      </div>
+      <div class="menu__link">View Menu
+        <span class="arr"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="#e0d9ce" stroke-width="1.4"><path d="M2 12L12 2M12 2H4M12 2V10"/></svg></span>
+      </div>
+    </a>
+    <a class="menu__item" href="#" data-open-menu="dessert" data-fade>
+      <div class="menu__num">02</div>
+      <div class="menu__body">
+        <h3>Dessert</h3>
+        <span class="when">Available Nightly</span>
+        <p>A refined close to the evening — Japanese-inspired sweets and seasonal confections.</p>
+      </div>
+      <div class="menu__link">View Menu
+        <span class="arr"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="#e0d9ce" stroke-width="1.4"><path d="M2 12L12 2M12 2H4M12 2V10"/></svg></span>
+      </div>
+    </a>
+    <a class="menu__item" href="#" data-open-menu="beverage" data-fade>
+      <div class="menu__num">03</div>
+      <div class="menu__body">
+        <h3>Beverage</h3>
+        <span class="when">Bar &amp; Spirits</span>
+        <p>An intentional collection of sake, Japanese whisky, wine, and house cocktails.</p>
+      </div>
+      <div class="menu__link">View Menu
+        <span class="arr"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="#e0d9ce" stroke-width="1.4"><path d="M2 12L12 2M12 2H4M12 2V10"/></svg></span>
+      </div>
+    </a>
+  </div>
+
+  <!-- Japanese culinary verse (Edo-period haiku, Yamaguchi Sodō) used by Momotaro as a divider -->
+  <div class="menu__quote" data-fade>
+    <div class="jp">目に青葉 山ほととぎす 初鰹</div>
+    <div class="tr">Green leaves to the eye, the mountain cuckoo, the season's first bonito.</div>
+    <div class="by">Yamaguchi Sodō · 山口素堂</div>
+  </div>
+
+  <!-- Signature dishes — real names &amp; photos from momotaronashville.com -->
+  <div class="sig">
+    <div class="sig__card" data-fade>
+      <span class="sig__num">壱</span>
+      <div class="sig__media"><img src="images/mapo-tofu.webp" alt="Momotaro mapo tofu in a clay donabe with steamed rice" /></div>
+      <div class="sig__cap">
+        <div class="sig__jp">マーボー豆腐</div>
+        <div class="sig__name">Mapo Tofu</div>
+        <div class="sig__desc">Clay-pot braise, served with steamed rice.</div>
+      </div>
+    </div>
+    <div class="sig__card" data-fade>
+      <span class="sig__num">弐</span>
+      <div class="sig__media"><img src="images/nigiri.webp" alt="Assorted Momotaro nigiri sushi" /></div>
+      <div class="sig__cap">
+        <div class="sig__jp">握り寿司</div>
+        <div class="sig__name">Nigiri</div>
+        <div class="sig__desc">Chef's selection of seasonal fish.</div>
+      </div>
+    </div>
+    <div class="sig__card" data-fade>
+      <span class="sig__num">参</span>
+      <div class="sig__media"><img src="images/momomaki.webp" alt="Momomaki, Momotaro's signature maki roll" /></div>
+      <div class="sig__cap">
+        <div class="sig__jp">巻き</div>
+        <div class="sig__name">Momomaki</div>
+        <div class="sig__desc">The signature Momotaro roll.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="menu__cta">
+    <a class="btn-reserve" href="#" data-open-menu="dinner" data-fade><span>View Full Menu</span></a>
+  </div>
+</section>
+
+<!-- ================= THE TABLE — bento grid ================= -->
+<section class="gallery wrap" id="gallery">
+  <div class="gallery__head">
+    <div class="eyebrow">The Table</div>
+    <h2>Shaped by the <em>seasons,</em> the land &amp; the <em>craft</em></h2>
+  </div>
+  <div class="bento">
+    <figure class="bcell b-1"><img src="images/ig-counter.jpg" alt="Sushi chefs at the illuminated raw bar" /><figcaption class="bcell__cap"><span class="jp">寿司</span>The Counter</figcaption></figure>
+    <figure class="bcell b-2"><img src="images/nigiri.webp" alt="Assorted Momotaro nigiri" /><figcaption class="bcell__cap">Nigiri</figcaption></figure>
+    <figure class="bcell b-3"><img src="images/dish-03.webp" alt="Chef grilling yakitori skewers over an open flame" /><figcaption class="bcell__cap">Charcoal Robata</figcaption></figure>
+    <figure class="bcell b-4"><img src="images/dish-07.webp" alt="Gunkan maki topped with avocado and salmon roe" /><figcaption class="bcell__cap">Gunkan Maki</figcaption></figure>
+    <figure class="bcell b-5"><img src="images/dish-06.webp" alt="Cold crudo with roasted tomato and herbs" /><figcaption class="bcell__cap">Crudo</figcaption></figure>
+    <figure class="bcell b-6"><img src="images/dish-10.webp" alt="Hot stone-pot rice topped with seared beef" /><figcaption class="bcell__cap">Stone-Pot Rice</figcaption></figure>
+    <figure class="bcell b-7"><img src="images/mapo-tofu.webp" alt="Mapo tofu in a clay donabe" /><figcaption class="bcell__cap">Mapo Tofu</figcaption></figure>
+  </div>
+</section>
+
+<!-- ================= DINE CTA ================= -->
+<section class="dine" id="reserve">
+  <div class="dine__media" data-hero-media>
+    <img src="images/interior.avif" alt="Momotaro Nashville dining room" />
+  </div>
+  <div class="dine__inner">
+    <div class="eyebrow" data-fade>Dine With Us</div>
+    <h2>
+      <span class="reveal-line"><span data-line>Dine</span></span>
+      <span class="reveal-line"><span data-line>with <em>us</em></span></span>
+    </h2>
+    <p data-fade>Our culinary team delivers authentic Japanese flavor while honoring the traditional techniques that make every visit a distinctive experience.</p>
+    <a class="btn-reserve" href="https://www.opentable.com/r/momotaro-nashville" target="_blank" rel="noopener" data-fade><span>Reserve a Table</span></a>
+  </div>
+</section>
+
+<!-- ================= GIFT CARDS — Share the Experience ================= -->
+<section class="giftcards" id="giftcards">
+  <div class="wrap">
+    <div class="gc-copy">
+      <div class="eyebrow" data-fade>Gift Cards</div>
+      <h2>
+        <span class="reveal-line"><span data-line>Share the</span></span>
+        <span class="reveal-line"><span data-line><em>experience.</em></span></span>
+      </h2>
+      <p data-fade>Whether it's a celebration or a simple thank you, a Momotaro gift card brings people together over seasonal Japanese flavors they'll remember.</p>
+      <a class="gc-btn" href="#giftcards" data-fade><span>Order a Gift Card</span></a>
+    </div>
+
+    <div class="gc-stage" id="gcStage">
+      <!-- 5 fanned sleeves, animated on scroll -->
+      <div class="gc-card gc-c1" data-x="-46" data-y="-34" data-r="-20" data-value="$25">
+        <span class="corner tl"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 23V7"/><path d="M12 13c.2-3 2.6-5.2 5.4-5.2C17.2 10.8 14.8 13 12 13z"/><path d="M12 17c-.2-2.6-2.4-4.6-4.9-4.6C7.3 15 9.5 17 12 17z"/><path d="M12 9c.2-2.2 1.8-3.8 3.8-3.8C15.6 7.4 14 9 12 9z"/></svg></span>
+        <div class="gc-logo" role="img" aria-label="Momotaro Nashville"></div>
+        <div class="gc-sub">Gift Card</div>
+        <div class="gc-micro">Valid for 12 months · Nashville</div>
+        <span class="corner br"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 23V7"/><path d="M12 13c.2-3 2.6-5.2 5.4-5.2C17.2 10.8 14.8 13 12 13z"/><path d="M12 17c-.2-2.6-2.4-4.6-4.9-4.6C7.3 15 9.5 17 12 17z"/><path d="M12 9c.2-2.2 1.8-3.8 3.8-3.8C15.6 7.4 14 9 12 9z"/></svg></span>
+      </div>
+      <div class="gc-card gc-c2" data-x="72" data-y="-8" data-r="14" data-value="$50">
+        <span class="corner tl"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 23V7"/><path d="M12 13c.2-3 2.6-5.2 5.4-5.2C17.2 10.8 14.8 13 12 13z"/><path d="M12 17c-.2-2.6-2.4-4.6-4.9-4.6C7.3 15 9.5 17 12 17z"/><path d="M12 9c.2-2.2 1.8-3.8 3.8-3.8C15.6 7.4 14 9 12 9z"/></svg></span>
+        <div class="gc-logo" role="img" aria-label="Momotaro Nashville"></div>
+        <div class="gc-sub">Gift Card</div>
+        <div class="gc-micro">Valid for 12 months · Nashville</div>
+        <span class="corner br"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 23V7"/><path d="M12 13c.2-3 2.6-5.2 5.4-5.2C17.2 10.8 14.8 13 12 13z"/><path d="M12 17c-.2-2.6-2.4-4.6-4.9-4.6C7.3 15 9.5 17 12 17z"/><path d="M12 9c.2-2.2 1.8-3.8 3.8-3.8C15.6 7.4 14 9 12 9z"/></svg></span>
+      </div>
+      <div class="gc-card gc-c3" data-x="-74" data-y="44" data-r="-9" data-value="$500">
+        <span class="corner tl"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 23V7"/><path d="M12 13c.2-3 2.6-5.2 5.4-5.2C17.2 10.8 14.8 13 12 13z"/><path d="M12 17c-.2-2.6-2.4-4.6-4.9-4.6C7.3 15 9.5 17 12 17z"/><path d="M12 9c.2-2.2 1.8-3.8 3.8-3.8C15.6 7.4 14 9 12 9z"/></svg></span>
+        <div class="gc-logo" role="img" aria-label="Momotaro Nashville"></div>
+        <div class="gc-sub">Gift Card</div>
+        <div class="gc-micro">Valid for 12 months · Nashville</div>
+        <span class="corner br"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 23V7"/><path d="M12 13c.2-3 2.6-5.2 5.4-5.2C17.2 10.8 14.8 13 12 13z"/><path d="M12 17c-.2-2.6-2.4-4.6-4.9-4.6C7.3 15 9.5 17 12 17z"/><path d="M12 9c.2-2.2 1.8-3.8 3.8-3.8C15.6 7.4 14 9 12 9z"/></svg></span>
+      </div>
+      <div class="gc-card gc-c4" data-x="60" data-y="62" data-r="22" data-value="$250">
+        <span class="corner tl"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 23V7"/><path d="M12 13c.2-3 2.6-5.2 5.4-5.2C17.2 10.8 14.8 13 12 13z"/><path d="M12 17c-.2-2.6-2.4-4.6-4.9-4.6C7.3 15 9.5 17 12 17z"/><path d="M12 9c.2-2.2 1.8-3.8 3.8-3.8C15.6 7.4 14 9 12 9z"/></svg></span>
+        <div class="gc-logo" role="img" aria-label="Momotaro Nashville"></div>
+        <div class="gc-sub">Gift Card</div>
+        <div class="gc-micro">Valid for 12 months · Nashville</div>
+        <span class="corner br"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 23V7"/><path d="M12 13c.2-3 2.6-5.2 5.4-5.2C17.2 10.8 14.8 13 12 13z"/><path d="M12 17c-.2-2.6-2.4-4.6-4.9-4.6C7.3 15 9.5 17 12 17z"/><path d="M12 9c.2-2.2 1.8-3.8 3.8-3.8C15.6 7.4 14 9 12 9z"/></svg></span>
+      </div>
+      <div class="gc-card gc-c5" data-x="2" data-y="22" data-r="4" data-value="$100">
+        <span class="corner tl"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 23V7"/><path d="M12 13c.2-3 2.6-5.2 5.4-5.2C17.2 10.8 14.8 13 12 13z"/><path d="M12 17c-.2-2.6-2.4-4.6-4.9-4.6C7.3 15 9.5 17 12 17z"/><path d="M12 9c.2-2.2 1.8-3.8 3.8-3.8C15.6 7.4 14 9 12 9z"/></svg></span>
+        <div class="gc-logo" role="img" aria-label="Momotaro Nashville"></div>
+        <div class="gc-sub">Gift Card</div>
+        <div class="gc-micro">Valid for 12 months · Nashville</div>
+        <span class="corner br"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 23V7"/><path d="M12 13c.2-3 2.6-5.2 5.4-5.2C17.2 10.8 14.8 13 12 13z"/><path d="M12 17c-.2-2.6-2.4-4.6-4.9-4.6C7.3 15 9.5 17 12 17z"/><path d="M12 9c.2-2.2 1.8-3.8 3.8-3.8C15.6 7.4 14 9 12 9z"/></svg></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= INSTAGRAM ================= -->
+<section class="insta wrap">
+  <div class="insta__head">
+    <div class="eyebrow" data-fade>Follow Along</div>
+    <h2 data-fade><em>@momotaro</em>restaurant</h2>
+  </div>
+  <div class="insta__strip">
+    <a href="https://www.instagram.com/momotarorestaurant/" target="_blank" rel="noopener"><img src="images/dish-02.webp" alt="Momotaro Nashville on Instagram"/></a>
+    <a href="https://www.instagram.com/momotarorestaurant/" target="_blank" rel="noopener"><img src="images/dish-05.webp" alt="Momotaro Nashville on Instagram"/></a>
+    <a href="https://www.instagram.com/momotarorestaurant/" target="_blank" rel="noopener"><img src="images/dish-09.webp" alt="Momotaro Nashville on Instagram"/></a>
+    <a href="https://www.instagram.com/momotarorestaurant/" target="_blank" rel="noopener"><img src="images/dish-07.webp" alt="Momotaro Nashville on Instagram"/></a>
+    <a href="https://www.instagram.com/momotarorestaurant/" target="_blank" rel="noopener"><img src="images/dish-06.webp" alt="Momotaro Nashville on Instagram"/></a>
+    <a href="https://www.instagram.com/momotarorestaurant/" target="_blank" rel="noopener"><img src="images/dish-08.webp" alt="Momotaro Nashville on Instagram"/></a>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer wrap" id="footer">
+  <div class="footer__top">
+    <div class="footer__brand">
+      <img src="images/momotaro-mark.png" alt="Momotaro" />
+      <div class="jp">桃太郎</div>
+      <p>A modern Japanese dining experience in Nashville's Wedgewood Houston neighborhood, operated by BOKA WH Management, LLC.</p>
+    </div>
+    <div class="footer__col">
+      <h4>Visit</h4>
+      <a href="https://maps.google.com/?q=519 Houston Street Nashville TN 37203" target="_blank" rel="noopener">519 Houston Street,<br/>Nashville TN 37203</a>
+      <a href="tel:6292069900">629-206-9900</a>
+      <a href="mailto:info@momotaronashville.com">info@momotaronashville.com</a>
+    </div>
+    <div class="footer__col">
+      <h4>Explore</h4>
+      <a href="#about">About</a>
+      <a href="#menu">Menu</a>
+      <a href="#gallery">Private Events</a>
+      <a href="https://www.opentable.com/r/momotaro-nashville" target="_blank" rel="noopener">Reservations</a>
+      <a href="#">Gift Cards</a>
+    </div>
+    <div class="footer__col">
+      <h4>Newsletter</h4>
+      <p style="opacity:.7;margin-bottom:8px">Seasonal menus, events, and first looks.</p>
+      <div class="footer__news">
+        <input type="email" placeholder="Your email address" />
+        <button>Sign Up</button>
+      </div>
+      <div class="footer__socials">
+        <a href="https://www.instagram.com/momotarorestaurant/" target="_blank" rel="noopener"><img src="images/ig-icon.svg" alt="Instagram"/></a>
+        <a href="https://facebook.com" target="_blank" rel="noopener"><img src="images/facebook-icon.svg" alt="Facebook"/></a>
+      </div>
+    </div>
+  </div>
+  <svg class="footer__bigword" viewBox="0 0 1000 120" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Momotaro">
+    <text x="0" y="104" font-size="130" textLength="1000" lengthAdjust="spacing">MOMOTARO</text>
+  </svg>
+  <div class="footer__bottom">
+    <div>© 2026 Momotaro Nashville · <a href="https://momotarochicago.com/" target="_blank" rel="noopener">Find Momotaro in Chicago</a></div>
+    <div class="footer__legal">
+      <a href="#">Accessibility</a>
+      <a href="#">Site Map</a>
+      <a href="#">Privacy Policy</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ================= MENU LIGHTBOX ================= -->
+<div class="mmodal" id="menuModal" aria-hidden="true">
+  <div class="mmodal__bg" data-close></div>
+  <div class="mmodal__panel" role="dialog" aria-modal="true" aria-label="Momotaro menu">
+    <div class="mmodal__head">
+      <div class="mmodal__tabs">
+        <button class="mtab" data-tab="dinner">Dinner</button>
+        <button class="mtab" data-tab="dessert">Dessert</button>
+        <button class="mtab" data-tab="beverage">Beverage</button>
+      </div>
+      <button class="mmodal__close" data-close aria-label="Close menu">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 2l12 12M14 2L2 14"/></svg>
+      </button>
+    </div>
+    <div class="mmodal__body" id="menuModalBody" data-lenis-prevent>
+      <img data-src="images/menu-dinner.png" data-menu="dinner" alt="Momotaro Nashville dinner menu" />
+      <img data-src="images/menu-dessert.png" data-menu="dessert" alt="Momotaro Nashville dessert menu" />
+      <img data-src="images/menu-beverage.png" data-menu="beverage" alt="Momotaro Nashville beverage menu" />
+    </div>
+  </div>
+</div>
+
+<script>
+/* =========================================================
+   MOTION ENGINE — Lenis smooth scroll + GSAP ScrollTrigger
+   ========================================================= */
+gsap.registerPlugin(ScrollTrigger);
+const isMobile = window.matchMedia('(max-width:900px)').matches;
+const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- Preloader ---------- */
+(function preload(){
+  const loader = document.getElementById('loader');
+  const count = document.getElementById('count');
+  const bar = document.getElementById('bar');
+  let p = 0;
+  const tick = setInterval(()=>{
+    p += Math.floor(Math.random()*8)+3;
+    if(p>=100){p=100;clearInterval(tick);finish();}
+    count.textContent = p;
+    bar.style.width = p + '%';
+  }, 90);
+
+  function finish(){
+    const tl = gsap.timeline({delay:.35, onComplete:()=>{ loader.style.display='none'; document.body.style.overflow=''; ScrollTrigger.refresh(); }});
+    tl.to('#loader .loader__circle, #loader .loader__welcome, #loader .loader__label, #count, #bar',
+        {opacity:0, y:-20, duration:.6, ease:'power2.in', stagger:.04})
+      .to(loader, {yPercent:-100, duration:1.1, ease:'expo.inOut'}, '-=.2')
+      .add(heroIntro, '-=.7');
+  }
+  document.body.style.overflow='hidden';
+  // Safety net: if rAF is throttled (e.g. tab backgrounded during load) the GSAP
+  // dismiss timeline can stall — force the reveal so the loader never gets stuck.
+  setTimeout(()=>{
+    if(loader.style.display!=='none'){
+      clearInterval(tick);
+      gsap.set('[data-hero-line]',{yPercent:0});
+      gsap.set('[data-hero="1"],[data-hero="2"],[data-hero="3"]',{opacity:1,y:0});
+      loader.style.display='none';
+      document.body.style.overflow='';
+      ScrollTrigger.refresh();
+    }
+  }, 6500);
+})();
+
+/* ---------- Hero intro reveal ---------- */
+function heroIntro(){
+  const tl = gsap.timeline();
+  tl.from('[data-hero-line]', {yPercent:115, duration:1.2, ease:'expo.out', stagger:.12})
+    .from('[data-hero="1"]', {opacity:0, y:20, duration:.9, ease:'power3.out'}, '-=1')
+    .from('[data-hero="2"],[data-hero="3"]', {opacity:0, y:24, duration:1, ease:'power3.out', stagger:.12}, '-=.8');
+}
+
+/* ---------- Lenis smooth scroll (Amrit settings) ---------- */
+let lenis;
+if(!reduce){
+  lenis = new Lenis({
+    duration:1.2,
+    easing:(t)=>Math.min(1,1.001-Math.pow(2,-10*t)),
+    smoothWheel:true,
+    touchMultiplier:2,
+  });
+  lenis.on('scroll', ScrollTrigger.update);
+  gsap.ticker.add((time)=>{ lenis.raf(time*1000); });
+  gsap.ticker.lagSmoothing(0);
+}
+
+/* ---------- Anchor links via Lenis ---------- */
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const id=a.getAttribute('href');
+    if(id.length<2)return;
+    const el=document.querySelector(id);
+    if(el){e.preventDefault(); lenis?lenis.scrollTo(el,{offset:0,duration:1.6}):el.scrollIntoView({behavior:'smooth'});
+      document.getElementById('navlinks').classList.remove('open');}
+  });
+});
+
+/* ---------- Nav scroll state + burger ---------- */
+const nav=document.getElementById('nav');
+ScrollTrigger.create({start:60, onUpdate:s=>nav.classList.toggle('scrolled', s.scroll()>60)});
+const burger=document.getElementById('burger');
+burger.addEventListener('click',()=>document.getElementById('navlinks').classList.toggle('open'));
+
+/* ---------- Hero parallax + Ken Burns (cinematic) ---------- */
+document.querySelectorAll('[data-hero-media]').forEach(media=>{
+  const img=media.querySelector('img');
+  // slow continuous zoom = video-like motion
+  gsap.to(img,{scale:1.05,duration:14,ease:'none',repeat:-1,yoyo:true});
+  gsap.to(img,{yPercent:18,ease:'none',scrollTrigger:{trigger:media.closest('section'),start:'top top',end:'bottom top',scrub:true}});
+});
+
+/* ---------- Split-line reveals on scroll ---------- */
+gsap.utils.toArray('[data-line]').forEach(line=>{
+  gsap.from(line,{yPercent:115,duration:1.1,ease:'expo.out',
+    scrollTrigger:{trigger:line,start:'top 88%'}});
+});
+
+/* ---------- Fade-up content ---------- */
+gsap.utils.toArray('[data-fade]').forEach(el=>{
+  gsap.to(el,{opacity:1,y:0,duration:1,ease:'power3.out',
+    scrollTrigger:{trigger:el,start:'top 90%'}});
+});
+
+/* ---------- Image clip reveal ---------- */
+gsap.utils.toArray('[data-reveal]').forEach(box=>{
+  const mask=box.querySelector('.mask');
+  const img=box.querySelector('img');
+  const tl=gsap.timeline({scrollTrigger:{trigger:box,start:'top 80%'}});
+  tl.to(mask,{scaleY:0,duration:1.3,ease:'expo.inOut',transformOrigin:'top'})
+    .from(img,{scale:1.4,duration:1.6,ease:'expo.out'},0);
+});
+
+/* ---------- About image: clean clip reveal + parallax drift ---------- */
+(function(){
+  const box=document.querySelector('[data-about-img]');
+  if(!box)return;
+  const img=box.querySelector('img');
+  gsap.set(box,{clipPath:'inset(0% 0% 100% 0%)'});
+  gsap.to(box,{clipPath:'inset(0% 0% 0% 0%)',duration:1.5,ease:'expo.inOut',
+    scrollTrigger:{trigger:box,start:'top 82%'}});
+  gsap.from(img,{scale:1.28,duration:1.8,ease:'expo.out',
+    scrollTrigger:{trigger:box,start:'top 82%'}});
+  gsap.fromTo(img,{yPercent:-6},{yPercent:6,ease:'none',
+    scrollTrigger:{trigger:box,start:'top bottom',end:'bottom top',scrub:true}});
+})();
+
+/* ---------- Generic parallax on images ---------- */
+gsap.utils.toArray('[data-parallax]').forEach(img=>{
+  const amt=parseFloat(img.dataset.parallax)||0.1;
+  gsap.to(img,{yPercent:amt*100,ease:'none',
+    scrollTrigger:{trigger:img,start:'top bottom',end:'bottom top',scrub:true}});
+});
+
+/* ---------- Marquee infinite ---------- */
+(function(){
+  const track=document.getElementById('marquee');
+  let x=0;
+  gsap.ticker.add(()=>{ x-=0.6; if(Math.abs(x)>track.scrollWidth/2)x=0; track.style.transform=`translateX(${x}px)`; });
+})();
+
+/* ---------- The Table — bento staggered scroll reveal ---------- */
+(function(){
+  const cells=gsap.utils.toArray('.bcell');
+  if(!cells.length||reduce)return;
+  gsap.set(cells,{clipPath:'inset(0% 0% 100% 0%)',opacity:0});
+  cells.forEach(c=>gsap.to(c,{clipPath:'inset(0% 0% 0% 0%)',opacity:1,duration:1.1,ease:'expo.out',
+    scrollTrigger:{trigger:c,start:'top 88%'}}));
+  // safety net: instantly reveal anything still hidden (guards against ScrollTrigger not firing)
+  setTimeout(()=>cells.forEach(c=>{if(parseFloat(getComputedStyle(c).opacity)<0.1)
+    gsap.set(c,{clipPath:'inset(0% 0% 0% 0%)',opacity:1});}),5000);
+})();
+
+/* ---------- Gift cards: fan-out on scroll + idle float ---------- */
+(function(){
+  const stage=document.getElementById('gcStage');
+  if(!stage)return;
+  const cards=gsap.utils.toArray('#gcStage .gc-card');
+  // render each card's denomination just below the logo
+  cards.forEach(c=>{const v=c.getAttribute('data-value'); if(v){const el=document.createElement('div');el.className='gc-value';el.textContent=v;const logo=c.querySelector('.gc-logo'); if(logo) logo.after(el);}});
+  // start as a neat centered stack
+  cards.forEach(c=>gsap.set(c,{xPercent:-50,yPercent:-50,x:0,y:0,rotation:0,scale:.9,transformOrigin:'50% 62%'}));
+  // scrub fan-out to each card's final scattered transform
+  const tl=gsap.timeline({scrollTrigger:{trigger:'#giftcards',start:'top 78%',end:'center 55%',scrub:1}});
+  cards.forEach(c=>{
+    tl.to(c,{x:parseFloat(c.dataset.x),y:parseFloat(c.dataset.y),
+      rotation:parseFloat(c.dataset.r),scale:1,ease:'power3.out'},0);
+  });
+  // living pile: slow idle rotation of the whole fan
+  if(!reduce) gsap.to(stage,{rotation:3,duration:8,ease:'sine.inOut',repeat:-1,yoyo:true,transformOrigin:'50% 50%'});
+  // perpetual organic float per card — mimics the continuous loop of Amrit's Lottie.
+  // xPercent/yPercent oscillate around the -50 centering and don't touch the scrub's px x/y,
+  // so the cards breathe whether or not you scroll or hover.
+  if(!reduce) cards.forEach((c,i)=>{
+    gsap.to(c,{yPercent:'-=5',duration:3.4+i*0.45,ease:'sine.inOut',repeat:-1,yoyo:true,delay:i*0.3});
+    gsap.to(c,{xPercent:'+='+(i%2?3:-3),duration:4.6+i*0.4,ease:'sine.inOut',repeat:-1,yoyo:true,delay:i*0.5});
+  });
+
+  // 3D parallax tilt toward the cursor (rotationX/Y are tracked separately
+  // from the fan-out x/y/rotation, so they layer without conflict)
+  if(!isMobile && !reduce){
+    stage.addEventListener('mousemove',e=>{
+      const r=stage.getBoundingClientRect();
+      const px=(e.clientX-r.left)/r.width-0.5;   // -0.5 .. 0.5
+      const py=(e.clientY-r.top)/r.height-0.5;
+      cards.forEach((c,i)=>{
+        const depth=1+i*0.16;                    // front cards lead the tilt
+        gsap.to(c,{rotationY:px*18*depth,rotationX:-py*18*depth,
+          duration:.7,ease:'power2.out',overwrite:'auto'});
+      });
+    });
+    stage.addEventListener('mouseleave',()=>{
+      cards.forEach(c=>gsap.to(c,{rotationY:0,rotationX:0,duration:1,ease:'power3.out',overwrite:'auto'}));
+    });
+  }
+})();
+
+/* Footer wordmark spans full width (SVG textLength) — no horizontal parallax */
+
+/* ---------- Custom cursor ---------- */
+if(!isMobile){
+  const dot=document.querySelector('.cursor');
+  const ring=document.querySelector('.cursor-ring');
+  let mx=0,my=0,rx=0,ry=0;
+  window.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;
+    dot.style.transform=`translate(${mx}px,${my}px) translate(-50%,-50%)`;});
+  gsap.ticker.add(()=>{ rx+=(mx-rx)*0.15; ry+=(my-ry)*0.15;
+    ring.style.transform=`translate(${rx}px,${ry}px) translate(-50%,-50%)`; });
+  document.querySelectorAll('a,button,.menu__item,.bcell,.insta__strip a').forEach(el=>{
+    el.addEventListener('mouseenter',()=>document.body.classList.add('cursor-hover'));
+    el.addEventListener('mouseleave',()=>document.body.classList.remove('cursor-hover'));
+  });
+}
+
+/* ---------- Menu lightbox ---------- */
+(function(){
+  const modal=document.getElementById('menuModal');
+  if(!modal)return;
+  const body=document.getElementById('menuModalBody');
+  const imgs=[...body.querySelectorAll('img')];
+  const tabs=[...modal.querySelectorAll('.mtab')];
+  function ensure(im){ if(im && !im.getAttribute('src') && im.dataset.src) im.src=im.dataset.src; }
+  function setTab(name){
+    tabs.forEach(t=>t.classList.toggle('active',t.dataset.tab===name));
+    imgs.forEach(im=>{const on=im.dataset.menu===name; im.classList.toggle('active',on); if(on) ensure(im);});
+    body.classList.remove('zoomed');
+    body.scrollTop=0; body.scrollLeft=0;
+  }
+  function open(name){
+    setTab(name||'dinner');
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden','false');
+    document.body.style.overflow='hidden';
+    if(window.lenis) lenis.stop();
+  }
+  function close(){
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden','true');
+    document.body.style.overflow='';
+    if(window.lenis) lenis.start();
+  }
+  tabs.forEach(t=>t.addEventListener('click',()=>setTab(t.dataset.tab)));
+  // click the menu to enlarge it further, click again to reset
+  body.addEventListener('click',e=>{ if(e.target.tagName==='IMG'){ body.classList.toggle('zoomed'); } });
+  modal.querySelectorAll('[data-close]').forEach(el=>el.addEventListener('click',close));
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.contains('open'))close();});
+  document.querySelectorAll('[data-open-menu]').forEach(el=>{
+    el.addEventListener('click',e=>{e.preventDefault();open(el.getAttribute('data-open-menu'));});
+  });
+})();
+
+window.addEventListener('load',()=>{
+  setTimeout(()=>ScrollTrigger.refresh(),300);
+  // warm the menu images (data-src -> src) so the lightbox opens instantly
+  setTimeout(()=>document.querySelectorAll('#menuModalBody img[data-src]').forEach(i=>{if(!i.getAttribute('src'))i.src=i.dataset.src;}),1200);
+});
+</script>
+</body>
+</html>
